@@ -98,16 +98,16 @@
 
 .game-over-content {
   background: white;
-  padding: 20px;
+  padding: 10px;
   border-radius: 10px;
   text-align: center;
 }
 
 .game-over-content button {
-  background-color: #4caf50; /* Green */
+  background-color: rgb(108, 184, 242);
   border: none;
   color: white;
-  padding: 15px 32px;
+  padding: 12px 24px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -120,7 +120,7 @@
 }
 
 .game-over-content button:hover {
-  background-color: #45a049;
+  background-color: rgb(120, 200, 255);
 }
 
 .computer-play-content button {

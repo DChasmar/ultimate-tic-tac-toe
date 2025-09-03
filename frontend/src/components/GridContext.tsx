@@ -1,20 +1,25 @@
-import React, { createContext, useState, ReactNode } from 'react';
-import { GridContextType, SubGridsCompleted } from '../types';
-import { allSubGrids } from '../constants';
-import { createInitialSubGridsCompleted, createEmptyGrid } from '../utils';
+import React, { createContext, useState, ReactNode } from "react";
+import { GridContextType, SubGridsCompleted } from "../types";
+import { allSubGrids } from "../constants";
+import {
+  createInitialSubGridsCompleted,
+  createEmptyGrid,
+} from "../utils/helpers";
 
 export const GridContext = createContext<GridContextType>({});
 
 interface GridProviderProps {
-    children: ReactNode;
+  children: ReactNode;
 }
 
 export const GridProvider: React.FC<GridProviderProps> = ({ children }) => {
   const [grid, setGrid] = useState<string[][][][]>(createEmptyGrid());
 
-  const [subGridsCompleted, setSubGridsCompleted] = useState<SubGridsCompleted>(createInitialSubGridsCompleted());
+  const [subGridsCompleted, setSubGridsCompleted] = useState<SubGridsCompleted>(
+    createInitialSubGridsCompleted()
+  );
 
-  const [whoseTurn, setWhoseTurn] = useState<'X' | 'O'>('X'); // Initialize to 'X'
+  const [whoseTurn, setWhoseTurn] = useState<"X" | "O">("X"); // Initialize to 'X'
 
   const [nextSubGrid, setNextSubGrid] = useState<Set<number>>(allSubGrids);
 
@@ -22,24 +27,38 @@ export const GridProvider: React.FC<GridProviderProps> = ({ children }) => {
 
   const playAgain = () => {
     if (gameOver) {
-      if (!setGameOver || !setGrid || !setSubGridsCompleted || !setWhoseTurn || !setNextSubGrid) return;
+      if (
+        !setGameOver ||
+        !setGrid ||
+        !setSubGridsCompleted ||
+        !setWhoseTurn ||
+        !setNextSubGrid
+      )
+        return;
       setGameOver(false);
       setGrid(createEmptyGrid());
       setSubGridsCompleted(createInitialSubGridsCompleted());
-      setWhoseTurn('X');
+      setWhoseTurn("X");
       setNextSubGrid(allSubGrids);
     }
-  }
+  };
 
   return (
-    <GridContext.Provider value={{
-      grid, setGrid, 
-      subGridsCompleted, setSubGridsCompleted,
-      whoseTurn, setWhoseTurn, 
-      nextSubGrid, setNextSubGrid,
-      gameOver, setGameOver,
-      playAgain
-      }}>
+    <GridContext.Provider
+      value={{
+        grid,
+        setGrid,
+        subGridsCompleted,
+        setSubGridsCompleted,
+        whoseTurn,
+        setWhoseTurn,
+        nextSubGrid,
+        setNextSubGrid,
+        gameOver,
+        setGameOver,
+        playAgain,
+      }}
+    >
       {children}
     </GridContext.Provider>
   );
